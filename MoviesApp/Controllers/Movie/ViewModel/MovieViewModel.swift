@@ -21,11 +21,15 @@ class MovieViewModel {
     
     var castList: Cast!
     var selectedMovie : Movie?
-    
-    weak var delegate: MovieViewModelDelegate?
-    
     private var cachedImages = [String:Data]()
     
+
+    /** Delegate to controll business logic of viewcontroler elements */
+    weak var delegate: MovieViewModelDelegate?
+    
+    /** Delegate to controll loadig animation while data from api is
+     in the process */
+    weak var loadingDelegate: LoadingDelegate?
     
     init(id: Int) {
         getMovie(with: id)
@@ -46,6 +50,7 @@ class MovieViewModel {
             self.castList = cast
             self.delegate?.refreshView()
             self.delegate?.downloadAllImages()
+            self.loadingDelegate?.loadingIcon.stopAnimating()
             
             MovieViewController.shared.refreshView()
             MovieViewController.shared.castCollectionView.reloadData()

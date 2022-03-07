@@ -24,8 +24,9 @@ class MovieViewController: ParentViewController {
     var castTitle = UILabel()
     
     override func viewDidLoad() {
-        movieViewModel = MovieViewModel(id: id)
         MovieViewController.shared = self
+        
+        movieViewModel = MovieViewModel(id: id)
         super.viewDidLoad()
     }
     
@@ -116,9 +117,15 @@ class MovieViewController: ParentViewController {
             $0.width.equalToSuperview()
             $0.height.equalTo(200)
         }
+        
+        movieViewModel.loadingDelegate = self
+        loadingIcon.startAnimating()
+    
+        view.addSubview(loadingIcon)
+        loadingIcon.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
     }
-    
-    
 }
 
 extension MovieViewController: MovieViewModelDelegate {
@@ -130,7 +137,10 @@ extension MovieViewController: MovieViewModelDelegate {
         movieDescription.text = movieViewModel.selectedMovie?.description
         budget.text = "Budget: $\(movieViewModel.selectedMovie?.budget ?? 0)"
         rating.text = "Rating: \(movieViewModel.selectedMovie?.rating ?? 0)☆"
-        date.text = "Release date : " + (movieViewModel.selectedMovie?.date ?? "Unknown")
+        date.text = "Release date : " + (DateFormatter.getFormated(
+            date: (movieViewModel.selectedMovie?.date ?? "0"),
+            with: "MMM dd, yyyy"
+        ) ?? "unknown")
     }
     
     /** Dowloading all image to not freeze UI in future cases*/

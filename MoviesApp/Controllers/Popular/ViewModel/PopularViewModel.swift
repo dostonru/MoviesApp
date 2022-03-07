@@ -17,6 +17,7 @@ class PopularViewModel {
     
     var movies = [Movie]()
     private var cachedImages = [String:Data]()
+    weak var loadingDelegate: LoadingDelegate?
     
     /** Delegate of PopularViewModel, which will notify
      changes to its conformed viewcontroller's functions */
@@ -27,6 +28,8 @@ class PopularViewModel {
             self.movies = movies
             PopularViewController.shared.moviesTableView.reloadData()
             PopularViewController.shared.downloadAllImages()
+            
+            self.loadingDelegate?.loadingIcon.stopAnimating()
             self.delegate?.downloadAllImages()
             self.delegate?.reloadTableData()
         }

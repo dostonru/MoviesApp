@@ -6,7 +6,7 @@ import UIKit
 import SnapKit
 
 
-class PopularViewController: ParentViewController{
+class PopularViewController: ParentViewController {
     
     var moviesTableView  : UITableView!
     var popularViewModel : PopularViewModel!
@@ -18,10 +18,8 @@ class PopularViewController: ParentViewController{
         /** Creating singleton class and assign it to itseld to update
          tableview when data from api comes*/
         PopularViewController.shared = self
-        
-        super.viewDidLoad()
         popularViewModel = PopularViewModel()
-        
+        super.viewDidLoad()
     }
     
     /** Placing tableview into the scene*/
@@ -37,6 +35,14 @@ class PopularViewController: ParentViewController{
             $0.right.equalToSuperview()
             $0.top.equalToSuperview()
             $0.bottom.equalToSuperview()
+        }
+        
+        
+        popularViewModel.loadingDelegate = self
+        loadingIcon.startAnimating()
+        view.addSubview(loadingIcon)
+        loadingIcon.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
     
@@ -62,7 +68,10 @@ extension PopularViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.setupWithComponents(
             title: movie.title ?? "Unknown",
-            date: "Date: \(movie.date ?? "Unknown")",
+            date: "Date: " + (DateFormatter.getFormated(
+                date: (movie.date ?? "0"),
+                with: "MMM dd, yyyy"
+            ) ?? "unknown"),
             rating: "Rating: \(movie.rating ?? 0)☆"
         )
         

@@ -4,8 +4,9 @@
 
 import UIKit
 
-class ParentViewController: UIViewController {
-
+class ParentViewController: UIViewController, LoadingDelegate {
+    
+    var loadingIcon: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,6 +14,10 @@ class ParentViewController: UIViewController {
         /** Setup general background color for all uiviewcontrollers
          that will be inhereted from this parent controller */
         view.backgroundColor = .white
+        
+        /** Setup loading activity indicator to controll donwloading
+         data from api proccess*/
+        loadingIcon = UIActivityIndicatorView()
         
         self.createInstances()
         self.setupViewComponents()

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ActorViewController: ParentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ActorViewController: ParentViewController {
 
     var id: Int = 0
     var actorViewModel: ActorViewModel!
@@ -25,6 +25,7 @@ class ActorViewController: ParentViewController, UICollectionViewDelegate, UICol
     
     override func viewDidLoad() {
         ActorViewController.shared = self
+        
         actorViewModel = ActorViewModel(id: id)
         super.viewDidLoad()
     }
@@ -116,7 +117,18 @@ class ActorViewController: ParentViewController, UICollectionViewDelegate, UICol
             $0.width.equalToSuperview()
             $0.height.equalTo(200)
         }
+        
+        actorViewModel.loadingDelegate = self
+        loadingIcon.startAnimating()
+        
+        view.addSubview(loadingIcon)
+        loadingIcon.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
     }
+}
+
+extension ActorViewController: UICollectionViewDataSource {
     
     /** Refreshing all ui elements after  downloading movie and actor details from api*/
     func refreshView() {
@@ -159,13 +171,18 @@ class ActorViewController: ParentViewController, UICollectionViewDelegate, UICol
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 110, height: 180)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movieController = MovieViewController()
         movieController.id = actorViewModel.movies[indexPath.row].id
         present(movieController, animated: true, completion: nil)
     }
 }
+
+extension ActorViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 110, height: 180)
+    }
+}
+
+extension ActorViewController: UICollectionViewDelegate { }

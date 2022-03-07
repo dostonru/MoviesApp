@@ -23,11 +23,16 @@ class TopRatedViewModel {
      changes to its conformed viewcontroller's functions */
     weak var delegate: TopRatedViewModelDelegate?
     
+    /** Delegate of the loading protocol which will be
+     controll loading icon to the parent view controller*/
+    weak var loadingDelegate: LoadingDelegate?
+    
     init() {
         getTopRatedMovies() { (movies) in
             self.movies = movies
             TopRatedViewController.shared.moviesTableView.reloadData()
             TopRatedViewController.shared.downloadAllImages()
+            self.loadingDelegate?.loadingIcon.stopAnimating()
             self.delegate?.downloadAllImages()
             self.delegate?.reloadTableData()
         }

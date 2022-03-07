@@ -16,6 +16,8 @@ class ActorViewModel {
     
     var cachedImages = [String: Data]()
     
+    weak var loadingDelegate: LoadingDelegate?
+    
     init(id: Int) {
         getActor(with: id)
         getActorMovies(with: id)
@@ -25,6 +27,8 @@ class ActorViewModel {
     func getActorMovies(with id: Int) {
         ApiManager.getActorMovies(with: id) { (movieList) in
             self.movies = movieList.cast
+            self.loadingDelegate?.loadingIcon.stopAnimating()
+            
             ActorViewController.shared.refreshView()
             ActorViewController.shared.downloadAllImages()
         }

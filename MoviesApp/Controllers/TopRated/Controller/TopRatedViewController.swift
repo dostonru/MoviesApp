@@ -18,9 +18,8 @@ class TopRatedViewController: ParentViewController {
          tableview when data from api comes*/
         TopRatedViewController.shared = self
         
-        super.viewDidLoad()
         topRatedViewModel = TopRatedViewModel()
-        
+        super.viewDidLoad()
     }
     
     /** Placing tableview into the scene*/
@@ -30,12 +29,20 @@ class TopRatedViewController: ParentViewController {
         moviesTableView.dataSource = self
         moviesTableView.delegate = self
         moviesTableView.register(MovieTableViewCell.self, forCellReuseIdentifier: MovieTableViewCell.cell)
+        
         view.addSubview(moviesTableView)
         moviesTableView.snp.makeConstraints {
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
             $0.top.equalToSuperview()
             $0.bottom.equalToSuperview()
+        }
+        
+        topRatedViewModel.loadingDelegate = self
+        loadingIcon.startAnimating()
+        view.addSubview(loadingIcon)
+        loadingIcon.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
     
@@ -61,7 +68,10 @@ extension TopRatedViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.setupWithComponents(
             title: movie.title ?? "Unknown",
-            date: "Date: \(movie.date ?? "Unknown")",
+            date: "Date: " + (DateFormatter.getFormated(
+                date: (movie.date ?? "0"),
+                with: "MMM dd, yyyy"
+            ) ?? "unknown"),
             rating: "Rating: \(movie.rating ?? 0)☆"
         )
         

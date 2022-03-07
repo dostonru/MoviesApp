@@ -21,12 +21,14 @@ class UpcomingViewModel {
     /** Delegate of UpcomingViewModel, which will notify
      changes to its conformed viewcontroller's functions */
     weak var delegate: UpcomingViewModelDelegate?
+    weak var loadingDelegate: LoadingDelegate?
     
     init() {
         getUpcomingMovies() { (movies) in
             self.movies = movies
             UpcomingViewController.shared.moviesTableView.reloadData()
             UpcomingViewController.shared.downloadAllImages()
+            self.loadingDelegate?.loadingIcon.stopAnimating()
             self.delegate?.downloadAllImages()
             self.delegate?.reloadTableData()
         }
