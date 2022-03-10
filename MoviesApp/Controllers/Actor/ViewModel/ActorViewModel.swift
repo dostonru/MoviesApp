@@ -30,7 +30,7 @@ class ActorViewModel {
             self.loadingDelegate?.loadingIcon.stopAnimating()
             
             ActorViewController.shared.refreshView()
-            ActorViewController.shared.downloadAllImages()
+            //ActorViewController.shared.downloadAllImages()
         }
     }
     
@@ -46,7 +46,7 @@ class ActorViewModel {
     /** Cachind downloaded images into array to reuse
      them in the future casese*/
     func getImage(from url: String, completion: @escaping (UIImage) -> Void) {
-       
+        
         if let imageData = cachedImages[url] {
             completion(UIImage(data: imageData)!)
             return

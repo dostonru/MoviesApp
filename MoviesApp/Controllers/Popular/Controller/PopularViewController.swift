@@ -50,8 +50,8 @@ class PopularViewController: ParentViewController {
      load them during cell initialization we will get memory lack*/
     func downloadAllImages() {
         for image in popularViewModel.movies {
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.popularViewModel.getImage(from: image.image!) { _ in }
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                self?.popularViewModel.getImage(from: image.image!) { _ in }
             }
         }
     }
@@ -76,9 +76,7 @@ extension PopularViewController: UITableViewDataSource, UITableViewDelegate {
         )
         
         popularViewModel.getImage(from: movie.image!) { (image) in
-            DispatchQueue.main.async {
-                cell.posterView.image = image
-            }
+            cell.posterView.image = image
         }
                 
         return cell

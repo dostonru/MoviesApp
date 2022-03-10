@@ -12,9 +12,6 @@ class ActorViewController: ParentViewController {
 
     var id: Int = 0
     var actorViewModel: ActorViewModel!
-
-    var castCollectionView: UICollectionView!
-    static var shared = ActorViewController()
     
     var actorBiography = UITextView()
     var actorName = UILabel()
@@ -22,17 +19,19 @@ class ActorViewController: ParentViewController {
     var birthday = UILabel()
     var birthPlace = UILabel()
     var castTitle = UILabel()
+
+    var castCollectionView: UICollectionView!
+    static var shared = ActorViewController()
+    
     
     override func viewDidLoad() {
         ActorViewController.shared = self
-        
         actorViewModel = ActorViewModel(id: id)
         super.viewDidLoad()
     }
     
     
     override func setupViewComponents() {
-        
         
         actorName.text = "Unknown"
         actorName.font = .systemFont(ofSize: 20, weight: .bold)
@@ -126,9 +125,6 @@ class ActorViewController: ParentViewController {
             $0.center.equalToSuperview()
         }
     }
-}
-
-extension ActorViewController: UICollectionViewDataSource {
     
     /** Refreshing all ui elements after  downloading movie and actor details from api*/
     func refreshView() {
@@ -143,13 +139,15 @@ extension ActorViewController: UICollectionViewDataSource {
     func downloadAllImages() {
         for image in actorViewModel.movies {
             if let picture = image.image {
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.actorViewModel.getImage(from: picture) { _ in }
+                DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                    self?.actorViewModel.getImage(from: picture) { _ in }
                 }
             }
         }
     }
-    
+}
+
+extension ActorViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return actorViewModel.movies.count
@@ -186,3 +184,6 @@ extension ActorViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ActorViewController: UICollectionViewDelegate { }
+
+/**
+ */

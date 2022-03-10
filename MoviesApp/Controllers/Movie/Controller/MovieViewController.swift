@@ -146,9 +146,9 @@ extension MovieViewController: MovieViewModelDelegate {
     /** Dowloading all image to not freeze UI in future cases*/
     func downloadAllImages() {
         for movieActor in movieViewModel.castList.cast {
-            DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.global(qos: .userInitiated).async {  [weak self] in
                 if let image = movieActor.picture {
-                    self.movieViewModel.getImage(from: image) { _ in }
+                    self?.movieViewModel.getImage(from: image) { _ in }
                 }
             }
         }

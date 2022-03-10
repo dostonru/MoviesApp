@@ -50,8 +50,8 @@ class TopRatedViewController: ParentViewController {
      load them during cell initialization we will get memory lack*/
     func downloadAllImages() {
         for image in topRatedViewModel.movies {
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.topRatedViewModel.getImage(from: image.image!) { _ in }
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                self?.topRatedViewModel.getImage(from: image.image!) { _ in }
             }
         }
     }
@@ -76,9 +76,7 @@ extension TopRatedViewController: UITableViewDataSource, UITableViewDelegate {
         )
         
         topRatedViewModel.getImage(from: movie.image!) { (image) in
-            DispatchQueue.main.async {
-                cell.posterView.image = image
-            }
+            cell.posterView.image = image
         }
                 
         return cell

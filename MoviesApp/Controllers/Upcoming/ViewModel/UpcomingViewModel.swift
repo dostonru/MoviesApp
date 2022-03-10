@@ -27,9 +27,9 @@ class UpcomingViewModel {
         getUpcomingMovies() { (movies) in
             self.movies = movies
             UpcomingViewController.shared.moviesTableView.reloadData()
-            UpcomingViewController.shared.downloadAllImages()
+            //UpcomingViewController.shared.downloadAllImages()
             self.loadingDelegate?.loadingIcon.stopAnimating()
-            self.delegate?.downloadAllImages()
+            //self.delegate?.downloadAllImages()
             self.delegate?.reloadTableData()
         }
     }
@@ -50,6 +50,7 @@ class UpcomingViewModel {
             completion(UIImage(data: imageData)!)
             return
         }
+        
         
         let fullUrl = URL(string: IMAGE_URL + url)
         if let data = try? Data(contentsOf: fullUrl!) {

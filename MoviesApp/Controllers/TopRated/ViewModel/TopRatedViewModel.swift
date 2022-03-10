@@ -31,9 +31,9 @@ class TopRatedViewModel {
         getTopRatedMovies() { (movies) in
             self.movies = movies
             TopRatedViewController.shared.moviesTableView.reloadData()
-            TopRatedViewController.shared.downloadAllImages()
+            //TopRatedViewController.shared.downloadAllImages()
             self.loadingDelegate?.loadingIcon.stopAnimating()
-            self.delegate?.downloadAllImages()
+           // self.delegate?.downloadAllImages()
             self.delegate?.reloadTableData()
         }
     }

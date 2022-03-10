@@ -52,8 +52,8 @@ class UpcomingViewController: ParentViewController {
      load them during cell initialization we will get memory lack*/
     func downloadAllImages() {
         for image in upcomingViewModel.movies {
-            DispatchQueue.global(qos: .userInitiated).async {
-                self.upcomingViewModel.getImage(from: image.image!) { _ in }
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                self?.upcomingViewModel.getImage(from: image.image!) { _ in }
             }
         }
     }
@@ -78,9 +78,7 @@ extension UpcomingViewController: UITableViewDataSource, UITableViewDelegate {
         )
         
         upcomingViewModel.getImage(from: movie.image!) { (image) in
-            DispatchQueue.main.async {
-                cell.posterView.image = image
-            }
+            cell.posterView.image = image
         }
                 
         return cell

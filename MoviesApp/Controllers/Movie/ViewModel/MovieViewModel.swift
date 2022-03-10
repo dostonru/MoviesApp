@@ -40,6 +40,8 @@ class MovieViewModel {
     func getMovie(with id: Int) {
         ApiManager.getMovie(with: id) { (movie) in
             self.selectedMovie = movie
+            print(movie)
+            MovieViewController.shared.refreshView()
         }
     }
 
@@ -49,12 +51,11 @@ class MovieViewModel {
         ApiManager.getCast(with: id) { (cast) in
             self.castList = cast
             self.delegate?.refreshView()
-            self.delegate?.downloadAllImages()
+            //self.delegate?.downloadAllImages()
             self.loadingDelegate?.loadingIcon.stopAnimating()
             
             MovieViewController.shared.refreshView()
-            MovieViewController.shared.castCollectionView.reloadData()
-            MovieViewController.shared.downloadAllImages()
+            //MovieViewController.shared.downloadAllImages()
         }
     }
     
@@ -70,6 +71,7 @@ class MovieViewModel {
         let fullUrl = URL(string: IMAGE_URL + url)
         if let data = try? Data(contentsOf: fullUrl!) {
             cachedImages[url] = data
+       
             completion(UIImage(data: data)!)
             return
         }
