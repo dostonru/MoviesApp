@@ -27,9 +27,7 @@ class UpcomingViewModel {
         getUpcomingMovies() { (movies) in
             self.movies = movies
             UpcomingViewController.shared.moviesTableView.reloadData()
-            //UpcomingViewController.shared.downloadAllImages()
             self.loadingDelegate?.loadingIcon.stopAnimating()
-            //self.delegate?.downloadAllImages()
             self.delegate?.reloadTableData()
         }
     }

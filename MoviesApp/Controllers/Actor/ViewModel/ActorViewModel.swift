@@ -30,7 +30,6 @@ class ActorViewModel {
             self.loadingDelegate?.loadingIcon.stopAnimating()
             
             ActorViewController.shared.refreshView()
-            //ActorViewController.shared.downloadAllImages()
         }
     }
     

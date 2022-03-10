@@ -40,7 +40,6 @@ class MovieViewModel {
     func getMovie(with id: Int) {
         ApiManager.getMovie(with: id) { (movie) in
             self.selectedMovie = movie
-            print(movie)
             MovieViewController.shared.refreshView()
         }
     }
@@ -50,12 +49,9 @@ class MovieViewModel {
         castList = Cast(cast: [])
         ApiManager.getCast(with: id) { (cast) in
             self.castList = cast
-            self.delegate?.refreshView()
-            //self.delegate?.downloadAllImages()
             self.loadingDelegate?.loadingIcon.stopAnimating()
             
             MovieViewController.shared.refreshView()
-            //MovieViewController.shared.downloadAllImages()
         }
     }
     
