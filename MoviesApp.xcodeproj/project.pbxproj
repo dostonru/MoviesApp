@@ -220,16 +220,13 @@
 		F97A3DB727D2EF4C0055134E /* MoviesApp */ = {
 			isa = PBXGroup;
 			children = (
+				F9D573F227DA32E50032F5D0 /* Resources */,
 				F9A3BC5427D4FE13001F92A9 /* Customs */,
 				F97A3DEA27D30A840055134E /* Constants */,
 				F97A3DCF27D2EF710055134E /* Network */,
 				F97A3DCE27D2EF6D0055134E /* Views */,
 				F97A3DCD27D2EF670055134E /* Controllers */,
 				F97A3DCC27D2EF5E0055134E /* Models */,
-				F97A3DB827D2EF4C0055134E /* AppDelegate.swift */,
-				F97A3DBA27D2EF4C0055134E /* SceneDelegate.swift */,
-				F97A3DC127D2EF4D0055134E /* Assets.xcassets */,
-				F97A3DC627D2EF4D0055134E /* Info.plist */,
 			);
 			path = MoviesApp;
 			sourceTree = "<group>";
@@ -424,6 +421,17 @@
 				F974A80327D3B8DE004022E2 /* ActorViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F9D573F227DA32E50032F5D0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F97A3DB827D2EF4C0055134E /* AppDelegate.swift */,
+				F97A3DBA27D2EF4C0055134E /* SceneDelegate.swift */,
+				F97A3DC127D2EF4D0055134E /* Assets.xcassets */,
+				F97A3DC627D2EF4D0055134E /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -768,7 +776,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4265457Y3S;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MoviesApp/Info.plist;
+				INFOPLIST_FILE = MoviesApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -798,7 +806,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4265457Y3S;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MoviesApp/Info.plist;
+				INFOPLIST_FILE = MoviesApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
